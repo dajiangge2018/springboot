@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.demo.dao.AreaDao">
+    <select id="queryArea" resultType="com.jiang.demo.vo.AreaVO">
+      select area_id,area_name,area_index,creation_date,last_update_date
+      from area_t
+      order by area_index desc
+    </select>
+
+    <select id="queryAreaById" resultType="com.jiang.demo.vo.AreaVO">
+      select area_id,area_name,area_index,creation_date,last_update_date
+      from area_t
+      where area_id=#{areaId}
+    </select>
+
+    <insert id="insertArea" useGeneratedKeys="true" keyProperty="areaId" keyColumn="area_id"
+            parameterType="com.jiang.demo.vo.AreaVO">
+        insert into area_t
+        (area_name,area_index,creation_date,last_update_date)
+        values
+        (#{areaName},#{areaIndex},#{createDate},#{lastUpdateDate})
+    </insert>
+
+    <update id="updateArea" parameterType="com.jiang.demo.vo.AreaVO">
+        update area_t
+        <set>
+            <if test="areaName!=null">area_name=#{areaName},</if>
+            <if test="areaIndex!=null">area_index=#{areaIndex},</if>
+            <if test="lastUpdateDate!=null">last_update_date=#{lastUpdateDate}</if>
+            where area_id=#{areaId}
+        </set>
+    </update>
+
+    <delete id="deleteArea">
+        delete from area_t
+        where
+        area_id =#{areaId}
+    </delete>
+
+</mapper>
