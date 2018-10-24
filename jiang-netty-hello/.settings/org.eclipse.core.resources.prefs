@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/org/jiang/netty/CustomerHandler.java=gbk
+encoding//src/main/java/org/jiang/netty/HelloServer.java=gbk
+encoding//src/main/java/org/jiang/netty/HelloServerInitializer.java=gbk
+encoding//src/main/java/org/jiang/websocket/ChatHandler.java=gbk
+encoding//src/main/java/org/jiang/websocket/WsService.java=gbk
+encoding//src/main/java/org/jiang/websocket/WsServiceInitalizer.java=gbk
+encoding//src/main/resources=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/resources=UTF-8
+encoding/<project>=UTF-8
