@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/java/org/jiang/netty/ChatHandler.java=gbk
+encoding//src/main/java/org/jiang/netty/WsServiceInitalizer.java=gbk
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/test/java=UTF-8

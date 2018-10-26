@@ -26,9 +26,10 @@ public class WsServer {
 	public WsServer() {
 		mainGroup = new NioEventLoopGroup();
 		subGroup = new NioEventLoopGroup();
+		serverBootstrap = new ServerBootstrap();
 		serverBootstrap.group(mainGroup, subGroup) 
 								.channel(NioServerSocketChannel.class)  
-								.childHandler(null);
+								.childHandler(new WsServiceInitalizer());
 	} 
 	
 	public void start() {
