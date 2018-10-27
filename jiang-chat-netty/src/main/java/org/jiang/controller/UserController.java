@@ -34,7 +34,7 @@ public class UserController {
 			return JiangJSONResult.errorMsg("用户名或密码不能为空...");
 		}
 		//调用服务层接口，查询该用户是否存在
-		boolean isExistFlag = userService.queryUserNameIsExist(user.getUsername());
+		boolean isExistFlag = userService.queryUsernameIsExist(user.getUsername());
 		
 		Users userResult = null;
 		//如果存在

@@ -17,10 +17,11 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UsersMapper userMapper;
 	
-	public boolean queryUserNameIsExist(String userName) {
-		
+
+	@Override
+	public boolean queryUsernameIsExist(String username) {
 		Users user = new Users();
-		user.setUsername(userName);
+		user.setUsername(username);
 		
 		Users result = userMapper.selectOne(user);
 		
@@ -29,12 +30,6 @@ public class UserServiceImpl implements UserService{
 		}else {		
 			return false;	
 		}
-	}
-
-	@Override
-	public boolean queryUsernameIsExist(String username) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
