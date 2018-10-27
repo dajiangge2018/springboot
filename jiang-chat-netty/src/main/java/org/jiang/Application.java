@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 //扫描mybatis
 @MapperScan(basePackages="org.jiang.mapper")
 //扫描 所有需要的包, 包含一些自用的工具类包 所在的路径
-@ComponentScan(basePackages= {"org.jiang"})
+@ComponentScan(basePackages= {"org.jiang","org.n3r.idworker"})
 public class Application {
 
 	public static void main(String[] args) {
