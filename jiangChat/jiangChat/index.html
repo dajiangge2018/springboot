@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/header.css"/>
+	<link rel="stylesheet" type="text/css" href="font-icon/iconfont.css"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+		mui.plusReady(function(){
+			plus.navigator.setStatusBarStyle("light")
+			plus.navigator.setStatusBarBackground("#c9394A")
+		});
+    </script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav title">
+		<h1 class="mui-title title-color">My Messiage</h1>
+	</header>
+	
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" tabIndex="0">
+			<span class="mui-icon iconfont icon-xiaoxi"></span>
+			<span class="mui-tab-label">消息</span>
+		</a>
+		<a class="mui-tab-item" tabIndex="1">
+			<span class="mui-icon iconfont icon-tongxunlu"></span>
+			<span class="mui-tab-label">通讯录</span>
+		</a>
+		<a class="mui-tab-item" tabIndex="2">
+			<span class="mui-icon iconfont icon-faxian"></span>
+			<span class="mui-tab-label">发现</span>
+		</a>
+		<a class="mui-tab-item" tabIndex="3">
+			<span class="mui-icon iconfont icon-wode"></span>
+			<span class="mui-tab-label">我</span>
+		</a>
+	</nav>
+	
+	<script type="text/javascript">
+		
+		//创建数组,放置子页面对象
+		var subWebviews = [
+			{
+				pageId:"jiang-chats.html",
+				pageUrl:"jiang-chats.html",
+			},
+			{
+				pageId:"jiang-contacts.html",
+				pageUrl:"jiang-contacts.html",
+			},
+			{
+				pageId:"jiang-discover.html",
+				pageUrl:"jiang-discover.html",
+			},
+			{
+				pageId:"jiang-me.html",
+				pageUrl:"jiang-me.html",
+			}
+		];
+		var subPageStyle = {top:"44px",bottom:"50px"}
+		mui.plusReady(function(){
+			//获取当前的webview对象
+			var curWebview = plus.webview.currentWebview();
+			//向当前的主页面追加子页面的四个webview对象
+			for(var i = 0;i< subWebviews.length;i++){
+				var subPage = plus.webview.create(subWebviews[i].pageUrl,subWebviews[i].pageId,subPageStyle);
+				//隐藏子页面
+				subPage.hide();
+				//将子页面追加到主页面上
+				curWebview.append(subPage);
+			}
+			//默认显示第一个子页
+			plus.webview.show(subWebviews[0].pageId);
+			
+			//批量绑定tab事件,展示不同的页面
+			mui(".mui-bar-tab").on("tap","a",function(){
+				var tabIndex = this.getAttribute("tabIndex");
+				//显示选中的tab
+				plus.webview.show(subWebviews[tabIndex].pageId,"fade-in",200);
+				//隐藏未选中的tab
+				for(var i =0;i < subWebviews.length;i++){
+					if(i!=tabIndex){
+						plus.webview.hide(subWebviews[i].pageId,"fade-out",200);
+					}
+					
+				}
+			})
+		})
+	</script>
+</body>
+</html>
