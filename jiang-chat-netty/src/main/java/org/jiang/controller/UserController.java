@@ -50,7 +50,7 @@ public class UserController {
 			user.setFaceImage(null);
 			user.setFaceImageBig(null);
 			user.setPassword(MD5Utils.getMD5Str(user.getPassword()));
-			userResult =	userService.saveUser(userResult);
+			userResult =	userService.saveUser(user);
 		}
 		UsersVO userVO = new UsersVO();
 		BeanUtils.copyProperties(userResult, userVO);
