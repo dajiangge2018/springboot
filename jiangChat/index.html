@@ -18,7 +18,7 @@
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav title">
-		<h1 class="mui-title title-color">My Messiage</h1>
+		<h1 class="mui-title title-color">JiangChat</h1>
 	</header>
 	
 	<nav class="mui-bar mui-bar-tab">
@@ -63,6 +63,9 @@
 		];
 		var subPageStyle = {top:"44px",bottom:"50px"}
 		mui.plusReady(function(){
+			mui.back = function(){
+				return false;
+			}
 			//获取当前的webview对象
 			var curWebview = plus.webview.currentWebview();
 			//向当前的主页面追加子页面的四个webview对象

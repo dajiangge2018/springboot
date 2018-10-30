@@ -1,12 +1,12 @@
 package org.jiang.controller;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jiang.pojo.Users;
 import org.jiang.pojo.vo.UsersVO;
 import org.jiang.service.impl.UserServiceImpl;
 import org.jiang.utils.JiangJSONResult;
 import org.jiang.utils.MD5Utils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
