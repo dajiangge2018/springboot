@@ -54,7 +54,7 @@ public class UserController {
 		}
 		UsersVO userVO = new UsersVO();
 		BeanUtils.copyProperties(userResult, userVO);
-		return JiangJSONResult.ok();
+		return JiangJSONResult.ok(userVO);
 	} 
 
 }
