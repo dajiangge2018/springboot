@@ -12,12 +12,32 @@
 	<body>
 		<header class="mui-bar mui-bar-nav title">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<a id="openMenu" class="mui-icon mui-icon-righet-nav mui-pull-right" style="color: white;">...</a>
 			<h1 class="mui-title title-color">我的头像</h1>
 		</header>
 		
 		<div class="mui-content">
 			<img id="img_myface" src="css/registLogin/arrow1.jpg" />
 		</div>
+		
+		<div id="sheet-myface" class="mui-popover mui-popover-bottom mui-popover-action ">
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+			  <li class="mui-table-view-cell">
+				<a id="link_choose_photo" href="#">选择照片</a>
+			  </li>
+			  <li class="mui-table-view-cell">
+				<a id="link_save_photo" href="#">下载照片</a>
+			  </li>
+			</ul>
+			<!-- 取消菜单 -->
+			<ul class="mui-table-view">
+			  <li class="mui-table-view-cell">
+				<a href="#sheet-myface"><b>取消</b></a>
+			  </li>
+			</ul>
+		</div>
+		
 		<script src="js/mui.js"></script>
 		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -25,6 +45,24 @@
 			
 			mui.plusReady(function(){
 				refreshFace();
+				
+				var openMenu = document.getElementById("openMenu");
+				//绑定选择菜单
+				openMenu.addEventListener("tap",function(){
+					mui("#sheet-myface").popover("toggle");
+				});
+				
+				//绑定选择照片
+				var link_choose_photo = document.getElementById("link_choose_photo");
+				link_choose_photo.addEventListener("tap",function(){
+					mui.openWindow("/plugin/v3.1.6/myface-uploader.html","myface-uploader.html");
+				});
+				//绑定下载照片
+				var link_save_photo = document.getElementById("link_save_photo");
+				link_save_photo.addEventListener("tap",function(){
+					
+				});
+				
 			});
 			
 			var imgWidth = document.body.clientWidth;
