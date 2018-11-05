@@ -7,7 +7,7 @@ window.app={
 	/**
 	* 图片服务器地址
 	*/
-	imgServerUrl:"",
+	imgServerUrl:"http://192.168.1.6:88/group1/",
 	/**
 	 * 判断是否为空：ture-不为空；false-为空
 	 */

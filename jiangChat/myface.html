@@ -45,6 +45,14 @@
 			
 			mui.plusReady(function(){
 				refreshFace();
+				// 添加自定义事件，刷新头像
+				window.addEventListener("refresh", function(){
+					refreshFace();
+				});
+				
+				var imgWidth = document.body.clientWidth;
+				img_myface.width = imgWidth;
+				img_myface.height = imgWidth;
 				
 				var openMenu = document.getElementById("openMenu");
 				//绑定选择菜单
@@ -65,9 +73,7 @@
 				
 			});
 			
-			var imgWidth = document.body.clientWidth;
-			img_myface.width = imgWidth;
-			img_myface.height = imgWidth;
+			
 			
 			function refreshFace() {
 				var user = app.getUserGlobalInfo();
