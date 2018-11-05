@@ -98,11 +98,17 @@ public class UserServiceImpl implements UserService{
 		userMapper.insert(user);
 		return user;
 	}
-
+	
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public Users updateUserInfo(Users user) {
-		// TODO Auto-generated method stub
-		return null;
+		userMapper.updateByPrimaryKeySelective(user);
+		return queryUserById(user.getId());
+	}
+	
+	@Transactional(propagation = Propagation.SUPPORTS)
+	private Users queryUserById(String userId) {
+		return userMapper.selectByPrimaryKey(userId);
 	}
 
 	@Override
