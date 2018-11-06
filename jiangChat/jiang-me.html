@@ -19,7 +19,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_nickname" href="javascript:;">
 						<span class="mui-pull-right mui-icon mui-icon-arrowright" 
 						style="margin-left: 3px; color: lightgray;"></span>
 						<span id="span_nickname" class="mui-pull-right" 
@@ -74,10 +74,15 @@
 				meWebView.addEventListener("show",function(){
 					refreshUserInfo();
 				});
-				
+				//设置个人头像
 				var myface = document.getElementById("link_myface");
 				myface.addEventListener("tap",function(){
 					mui.openWindow("myface.html","myface.html");
+				});
+				//设置名字
+				var link_nickname = document.getElementById("link_nickname");
+				link_nickname.addEventListener("tap",function(){
+					mui.openWindow("mynickname.html","mynickname.html");
 				});
 			});
 			
