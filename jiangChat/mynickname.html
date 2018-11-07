@@ -12,7 +12,8 @@
 	<body>
 		<header class="mui-bar mui-bar-nav title">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
-			<a id="openMenu" class="mui-icon mui-icon-righet-nav mui-pull-right" style="color: white;font-size: 14px;line-height: 25px;">完成</a>
+			<a id="link_submit_nickname" class="mui-icon mui-icon-righet-nav mui-pull-right" 
+			style="color: white;font-size: 14px;line-height: 25px;">完成</a>
 			<h1 class="mui-title title-color">设置名字</h1>
 		</header>
 		
@@ -34,6 +35,52 @@
 				var user = app.getUserGlobalInfo();
 				var txt_nickname = document.getElementById("txt_nickname");
 				txt_nickname.value = user.nickname;
+				
+				var link_submit_nickname = document.getElementById("link_submit_nickname");
+				link_submit_nickname.addEventListener("tap",function(){
+					//获取用户输入的名字
+					var nickname = txt_nickname.value;
+					//校验输入的名字长度
+					if(nickname.length <1){
+						app.showToast("名字太短","error");
+						return false;
+					}
+					if(nickname.length >10){
+						app.showToast("名字太长","error");
+						return false;
+					}
+					plus.nativeUI.showWaiting("请稍等。。。");
+					mui.ajax(app.serverUrl + "/u/setNickname",{
+						data:{
+							userId:user.id,
+							nickname:nickname
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							plus.nativeUI.closeWaiting();
+							
+							if (data.status == 200) {
+								// 登录或者注册成功之后，保存全局用户对象到本地缓存
+								var userInfoJson = data.data;
+								app.setUserGlobalInfo(userInfoJson);
+								// 触发另外一个webview的自定义事件，可以使用 mui.fire()
+								var jiang_meWebview = plus.webview.getWebviewById("jiang-me.html");
+								mui.fire(jiang_meWebview, "refresh");
+								
+								// 页面跳转
+								mui.back();
+							} else {
+								app.showToast(data.msg, "error");
+							}
+						}
+						
+					});
+					
+				});
 			});
 			
 		</script>

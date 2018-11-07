@@ -84,6 +84,11 @@
 				link_nickname.addEventListener("tap",function(){
 					mui.openWindow("mynickname.html","mynickname.html");
 				});
+				
+				// 添加自定义事件，刷新头像
+				window.addEventListener("refresh", function(){
+					refreshUserInfo();
+				});
 			});
 			
 			function refreshUserInfo(){
