@@ -18,28 +18,11 @@
 		
 		<div class="mui-content">
 			<div class="mui-input-row">
-				<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
+				<input id="txt_nickname" type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
 			</div>
 			
 		</div>
 		
-		<div id="sheet-myface" class="mui-popover mui-popover-bottom mui-popover-action ">
-			<!-- 可选择菜单 -->
-			<ul class="mui-table-view">
-			  <li class="mui-table-view-cell">
-				<a id="link_choose_photo" href="#">选择照片</a>
-			  </li>
-			  <li class="mui-table-view-cell">
-				<a id="link_save_photo" href="#">下载照片</a>
-			  </li>
-			</ul>
-			<!-- 取消菜单 -->
-			<ul class="mui-table-view">
-			  <li class="mui-table-view-cell">
-				<a href="#sheet-myface"><b>取消</b></a>
-			  </li>
-			</ul>
-		</div>
 		
 		<script src="js/mui.js"></script>
 		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
@@ -48,6 +31,9 @@
 			
 			mui.plusReady(function(){
 				
+				var user = app.getUserGlobalInfo();
+				var txt_nickname = document.getElementById("txt_nickname");
+				txt_nickname.value = user.nickname;
 			});
 			
 		</script>

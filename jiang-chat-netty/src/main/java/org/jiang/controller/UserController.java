@@ -98,5 +98,20 @@ public class UserController {
 				
 				return JiangJSONResult.ok(result);
 	}
+	
+	/**
+	 * @Description: 修改名字
+	 */
+	@PostMapping("/setNickname")
+	public JiangJSONResult setNickname(@RequestBody UsersBO userBO) throws Exception{
+		
+		Users user = new Users();
+		
+		user.setId(userBO.getUserId());
+		user.setNickname(userBO.getNickname());
+		
+		Users result = userService.updateUserInfo(user);
+		return JiangJSONResult.ok(result);
+	}
 
 }
