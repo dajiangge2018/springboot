@@ -1,5 +1,6 @@
 package org.jiang.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.jiang.mapper.ChatMsgMapper;
@@ -11,12 +12,15 @@ import org.jiang.pojo.Users;
 import org.jiang.pojo.vo.FriendRequestVO;
 import org.jiang.pojo.vo.MyFriendsVO;
 import org.jiang.service.UserService;
+import org.jiang.utils.FastDFSClient;
+import org.jiang.utils.FileUtils;
 import org.jiang.utils.QRCodeUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -43,6 +47,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private QRCodeUtils qrCodeUtils;
+	
+	@Autowired
+	private FastDFSClient fastDFSClient;
 	
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
@@ -80,18 +87,18 @@ public class UserServiceImpl implements UserService{
 		
 		String userId = sid.nextShort();
 		// 为每个用户生成一个唯一的二维码
-//		String qrCodePath = "C://user" + userId + "qrcode.png";
-//		
-//		qrCodeUtils.createQRCode(qrCodePath, "jiangChat_qrcode:" + user.getUsername());
-//		MultipartFile qrCodeFile = FileUtils.fileToMultipart(qrCodePath);
+	String qrCodePath = "D://user" + userId + "qrcode.png";
+	
+		qrCodeUtils.createQRCode(qrCodePath, "jiangChat_qrcode:" + user.getUsername());
+		MultipartFile qrCodeFile = FileUtils.fileToMultipart(qrCodePath);
 		
 		String qrCodeUrl = "";
 		
-//		try {
-//			qrCodeUrl = fastDFSClient.uploadQRCode(qrCodeFile);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			qrCodeUrl = fastDFSClient.uploadQRCode(qrCodeFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		user.setQrcode(qrCodeUrl);
 		
 		user.setId(userId);
