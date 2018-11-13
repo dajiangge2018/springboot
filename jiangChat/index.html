@@ -91,8 +91,22 @@
 					}
 					
 				}
-			})
-		})
+				
+				
+			});
+			
+			// 延时加载
+			setTimeout("initData()", "1000");
+		});
+		
+		// 预加载
+		function initData() {
+			var jiang_chats = plus.webview.getWebviewById("jiang-chats.html");
+			mui.fire(jiang_chats, "refresh");
+			
+			var jiang_me = plus.webview.getWebviewById("jiang-me.html");
+			mui.fire(jiang_me, "refresh");
+		}
 	</script>
 </body>
 </html>

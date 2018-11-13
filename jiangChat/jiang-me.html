@@ -55,7 +55,7 @@
 			
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_logout" href="javascript:;">
 						<div class="mui-media-body" style="text-align: center;">
 							退出登录
 						</div>
@@ -84,22 +84,28 @@
 				link_nickname.addEventListener("tap",function(){
 					mui.openWindow("mynickname.html","mynickname.html");
 				});
+				// 添加自定义事件，刷新头像
+				window.addEventListener("refresh", function(){
+					refreshUserInfo();
+				});
 				//查看二维码
 				var link_myqrcode = document.getElementById("link_myqrcode");
 				link_myqrcode.addEventListener("tap",function(){
 					mui.openWindow("myQRCode.html","myQRCode.html");
 				});
-				
-				
-				// 添加自定义事件，刷新头像
-				window.addEventListener("refresh", function(){
-					refreshUserInfo();
+				//用户退出
+				var link_logout = document.getElementById("link_logout");
+				link_logout.addEventListener("tap",function(){
+					app.userLogout();
+					mui.openWindow("login.html", "login.html");
 				});
+				
+				
+				
 			});
 			
 			function refreshUserInfo(){
 				var user = app.getUserGlobalInfo();
-				console.log(JSON.stringify(user));
 				if(user != null){
 					var username = user.username;
 					var nickname = user.nickname;
