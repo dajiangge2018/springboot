@@ -7,7 +7,9 @@ import org.jiang.mapper.ChatMsgMapper;
 import org.jiang.mapper.FriendsRequestMapper;
 import org.jiang.mapper.MyFriendsMapper;
 import org.jiang.mapper.UsersMapper;
+import org.jiang.mapper.UsersMapperCustom;
 import org.jiang.pojo.ChatMsg;
+import org.jiang.pojo.MyFriends;
 import org.jiang.pojo.Users;
 import org.jiang.pojo.vo.FriendRequestVO;
 import org.jiang.pojo.vo.MyFriendsVO;
@@ -15,6 +17,7 @@ import org.jiang.service.UserService;
 import org.jiang.utils.FastDFSClient;
 import org.jiang.utils.FileUtils;
 import org.jiang.utils.QRCodeUtils;
+import org.joang.enums.SearchFriendsStatusEnum;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +33,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UsersMapper userMapper;
 	
-//	@Autowired
-//	private UsersMapperCustom usersMapperCustom;
+	@Autowired
+	private UsersMapperCustom usersMapperCustom;
 	
 	@Autowired
 	private MyFriendsMapper myFriendsMapper;
@@ -118,16 +121,41 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectByPrimaryKey(userId);
 	}
 
+	@Transactional(propagation = Propagation.SUPPORTS)
 	@Override
 	public Integer preconditionSearchFriends(String myUserId, String friendUsername) {
-		// TODO Auto-generated method stub
-		return null;
+		Users user = queryUserInfoByUsername(friendUsername);
+		
+		// 1. 搜索的用户如果不存在，返回[无此用户]
+		if (user == null) {
+			return SearchFriendsStatusEnum.USER_NOT_EXIST.status;
+		}
+		
+		// 2. 搜索账号是你自己，返回[不能添加自己]
+		if (user.getId().equals(myUserId)) {
+			return SearchFriendsStatusEnum.NOT_YOURSELF.status;
+		}
+		
+		// 3. 搜索的朋友已经是你的好友，返回[该用户已经是你的好友]
+		Example mfe = new Example(MyFriends.class);
+		Criteria mfc = mfe.createCriteria();
+		mfc.andEqualTo("myUserId", myUserId);
+		mfc.andEqualTo("myFriendUserId", user.getId());
+		MyFriends myFriendsRel = myFriendsMapper.selectOneByExample(mfe);
+		if (myFriendsRel != null) {
+			return SearchFriendsStatusEnum.ALREADY_FRIENDS.status;
+		}
+		
+		return SearchFriendsStatusEnum.SUCCESS.status;
 	}
-
+	
+	@Transactional(propagation = Propagation.SUPPORTS)
 	@Override
 	public Users queryUserInfoByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		Example ue = new Example(Users.class);
+		Criteria uc = ue.createCriteria();
+		uc.andEqualTo("username", username);
+		return userMapper.selectOneByExample(ue);
 	}
 
 	@Override
